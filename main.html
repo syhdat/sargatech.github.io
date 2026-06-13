@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SARGA Technology — Reliable Technology. Stronger Business.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy: #0a1628;
+    --navy-2: #0f1f38;
+    --blue: #2f6bff;
+    --blue-light: #5b9bff;
+    --ink: #0d1b2e;
+    --paper: #f6f7fb;
+    --paper-2: #ffffff;
+    --line: #1c3354;
+    --line-light: #e3e7ef;
+    --muted: #93a4c1;
+    --muted-dark: #5b6b85;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    overflow-x:hidden;
+  }
+  h1,h2,h3,h4,.display{
+    font-family:'Space Grotesk',sans-serif;
+    letter-spacing:-0.02em;
+  }
+  .mono{
+    font-family:'JetBrains Mono',monospace;
+    letter-spacing:0.05em;
+  }
+  a{text-decoration:none;color:inherit;}
+
+  /* ===== Circuit motif (signature element) ===== */
+  .circuit-line{
+    stroke:var(--blue);
+    stroke-width:2;
+    fill:none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+  .circuit-node{
+    fill:var(--paper);
+    stroke:var(--blue);
+    stroke-width:2;
+  }
+  .circuit-node-filled{
+    fill:var(--blue);
+  }
+
+  /* ===== Nav ===== */
+  header{
+    position:fixed; top:0; left:0; right:0;
+    z-index:100;
+    background:rgba(10,22,40,0.85);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(255,255,255,0.06);
+    transition:background .3s;
+  }
+  .nav-wrap{
+    max-width:1280px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:18px 32px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    color:#fff; font-weight:700; font-size:1.15rem;
+  }
+  .logo-mark{ width:34px; height:34px; }
+  .logo-text-sub{
+    font-size:0.55rem; font-weight:500; letter-spacing:0.25em;
+    color:var(--blue-light); display:block; margin-top:1px;
+  }
+  nav ul{
+    display:flex; gap:36px; list-style:none;
+  }
+  nav a{
+    color:var(--muted);
+    font-size:0.92rem; font-weight:500;
+    transition:color .2s;
+    position:relative;
+  }
+  nav a:hover{ color:#fff; }
+  nav a::after{
+    content:''; position:absolute; left:0; bottom:-6px;
+    width:0; height:1px; background:var(--blue-light);
+    transition:width .25s;
+  }
+  nav a:hover::after{ width:100%; }
+  .nav-cta{
+    background:var(--blue);
+    color:#fff !important;
+    padding:10px 22px;
+    border-radius:2px;
+    font-weight:600;
+    font-size:0.88rem;
+    transition:background .2s, transform .2s;
+  }
+  .nav-cta:hover{ background:var(--blue-light); transform:translateY(-1px); }
+  .nav-cta::after{ display:none; }
+
+  .menu-toggle{ display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none; padding:6px; }
+  .menu-toggle span{ width:24px; height:2px; background:#fff; display:block; }
+
+  /* ===== Hero ===== */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    background:linear-gradient(160deg, var(--navy) 0%, var(--navy-2) 55%, #142a4a 100%);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    padding-top:80px;
+  }
+  .hero-bg-circuit{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    opacity:0.35;
+  }
+  .hero-content{
+    position:relative; z-index:2;
+    max-width:1280px; margin:0 auto;
+    padding:60px 32px;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:60px;
+    align-items:center;
+    width:100%;
+  }
+  .eyebrow{
+    display:flex; align-items:center; gap:12px;
+    color:var(--blue-light);
+    font-size:0.78rem; font-weight:600;
+    margin-bottom:24px;
+    text-transform:uppercase;
+  }
+  .eyebrow .dash{ width:28px; height:1px; background:var(--blue-light); display:block; }
+  .hero h1{
+    font-size:clamp(2.6rem, 5.5vw, 4.4rem);
+    font-weight:700;
+    line-height:1.08;
+    margin-bottom:24px;
+  }
+  .hero h1 .accent{ color:var(--blue-light); }
+  .hero p{
+    color:var(--muted);
+    font-size:1.08rem;
+    line-height:1.7;
+    max-width:480px;
+    margin-bottom:36px;
+  }
+  .hero-actions{ display:flex; gap:16px; flex-wrap:wrap; }
+  .btn-primary{
+    background:var(--blue);
+    color:#fff;
+    padding:15px 32px;
+    border-radius:2px;
+    font-weight:600;
+    font-size:0.95rem;
+    display:inline-flex; align-items:center; gap:10px;
+    transition:background .2s, transform .2s;
+    border:1px solid var(--blue);
+  }
+  .btn-primary:hover{ background:var(--blue-light); border-color:var(--blue-light); transform:translateY(-2px); }
+  .btn-secondary{
+    color:#fff;
+    padding:15px 32px;
+    border-radius:2px;
+    font-weight:600;
+    font-size:0.95rem;
+    border:1px solid rgba(255,255,255,0.2);
+    transition:border-color .2s, background .2s, transform .2s;
+  }
+  .btn-secondary:hover{ border-color:var(--blue-light); background:rgba(255,255,255,0.04); transform:translateY(-2px); }
+
+  /* Hero visual: animated S circuit */
+  .hero-visual{
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-visual svg{ width:100%; max-width:420px; height:auto; }
+  .pulse{
+    animation:pulse 2.6s ease-in-out infinite;
+  }
+  .pulse-delay{ animation-delay:1.3s; }
+  @keyframes pulse{
+    0%,100%{ opacity:0.25; r:4; }
+    50%{ opacity:1; r:6; }
+  }
+  .draw{
+    stroke-dasharray:1400;
+    stroke-dashoffset:1400;
+    animation:draw 2.4s ease forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+
+  .hero-stats{
+    position:absolute;
+    bottom:-44px; left:32px; right:32px;
+    max-width:1280px; margin:0 auto;
+    background:var(--paper-2);
+    border:1px solid var(--line-light);
+    border-radius:2px;
+    display:flex;
+    box-shadow:0 12px 40px -16px rgba(10,22,40,0.25);
+    z-index:5;
+  }
+  .stat{
+    flex:1;
+    padding:28px 32px;
+    text-align:left;
+    border-right:1px solid var(--line-light);
+  }
+  .stat:last-child{ border-right:none; }
+  .stat .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:2rem; font-weight:700; color:var(--navy);
+    display:flex; align-items:baseline; gap:4px;
+  }
+  .stat .num span{ color:var(--blue); }
+  .stat .label{
+    font-size:0.82rem; color:var(--muted-dark);
+    margin-top:6px;
+  }
+
+  /* ===== Section base ===== */
+  section{ padding:140px 32px 100px; }
+  .section-inner{ max-width:1280px; margin:0 auto; }
+  .section-head{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    margin-bottom:64px;
+    align-items:end;
+  }
+  .section-tag{
+    display:flex; align-items:center; gap:12px;
+    color:var(--blue);
+    font-size:0.78rem; font-weight:700;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .section-tag .dash{ width:28px; height:1px; background:var(--blue); display:block; }
+  .section-head h2{
+    font-size:clamp(2rem, 4vw, 2.8rem);
+    font-weight:700;
+    line-height:1.15;
+    color:var(--navy);
+  }
+  .section-head .desc{
+    color:var(--muted-dark);
+    font-size:1.02rem;
+    line-height:1.7;
+  }
+
+  /* ===== About ===== */
+  #about{ background:var(--paper-2); border-top:1px solid var(--line-light); border-bottom:1px solid var(--line-light); }
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:80px;
+    align-items:center;
+  }
+  .about-visual{
+    position:relative;
+    aspect-ratio:1/1;
+    max-width:460px;
+  }
+  .about-visual svg{ width:100%; height:100%; }
+  .about-copy h3{
+    font-size:1.7rem; font-weight:700; color:var(--navy); margin-bottom:18px;
+  }
+  .about-copy p{
+    color:var(--muted-dark); line-height:1.75; margin-bottom:18px; font-size:1rem;
+  }
+  .about-points{
+    margin-top:32px;
+    display:grid;
+    gap:18px;
+  }
+  .about-point{
+    display:flex; gap:16px; align-items:flex-start;
+  }
+  .about-point .num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.8rem; color:var(--blue); font-weight:600;
+    padding-top:3px;
+  }
+  .about-point div h4{
+    font-size:1rem; font-weight:600; color:var(--navy); margin-bottom:4px;
+  }
+  .about-point div p{
+    color:var(--muted-dark); font-size:0.92rem; line-height:1.6; margin:0;
+  }
+
+  /* ===== Services ===== */
+  .services-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    border:1px solid var(--line-light);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .service-card{
+    padding:40px 32px;
+    border-right:1px solid var(--line-light);
+    border-bottom:1px solid var(--line-light);
+    background:var(--paper-2);
+    transition:background .25s;
+    position:relative;
+    min-height:280px;
+    display:flex; flex-direction:column;
+  }
+  .service-card:nth-child(4n){ border-right:none; }
+  .service-card:hover{ background:#f0f4ff; }
+  .service-card .icon{
+    width:46px; height:46px;
+    margin-bottom:28px;
+  }
+  .service-card .icon svg{ width:100%; height:100%; }
+  .service-card .idx{
+    position:absolute; top:24px; right:28px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:0.75rem; color:var(--line-light);
+    font-weight:500;
+  }
+  .service-card h3{
+    font-size:1.08rem; font-weight:600; color:var(--navy); margin-bottom:10px;
+  }
+  .service-card p{
+    color:var(--muted-dark); font-size:0.9rem; line-height:1.65; flex-grow:1;
+  }
+
+  /* ===== Process / Why ===== */
+  #why{ background:var(--navy); color:#fff; position:relative; overflow:hidden; }
+  #why .section-tag{ color:var(--blue-light); }
+  #why .section-tag .dash{ background:var(--blue-light); }
+  #why .section-head h2{ color:#fff; }
+  #why .section-head .desc{ color:var(--muted); }
+  .why-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .why-card{
+    background:var(--navy-2);
+    padding:44px 36px;
+    transition:background .25s;
+  }
+  .why-card:hover{ background:#16294a; }
+  .why-card .why-icon{
+    width:52px; height:52px;
+    border:1px solid var(--blue);
+    border-radius:2px;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:24px;
+  }
+  .why-card .why-icon svg{ width:26px; height:26px; }
+  .why-card h3{ font-size:1.2rem; font-weight:600; margin-bottom:10px; color:#fff; }
+  .why-card p{ color:var(--muted); font-size:0.92rem; line-height:1.7; }
+
+  /* ===== Process steps ===== */
+  #process{ background:var(--paper); }
+  .process-track{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:0;
+    position:relative;
+  }
+  .process-step{
+    padding:0 28px 0 0;
+    position:relative;
+  }
+  .process-step:not(:last-child)::after{
+    content:'';
+    position:absolute;
+    top:14px; right:0;
+    width:28px; height:1px;
+    background:repeating-linear-gradient(to right, var(--blue) 0 6px, transparent 6px 11px);
+  }
+  .process-step .step-num{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:0.85rem; font-weight:700; color:var(--blue);
+    width:28px; height:28px;
+    border:1px solid var(--blue);
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:24px;
+  }
+  .process-step h3{
+    font-size:1.05rem; font-weight:600; color:var(--navy); margin-bottom:10px;
+  }
+  .process-step p{
+    color:var(--muted-dark); font-size:0.9rem; line-height:1.65;
+  }
+
+  /* ===== Industries / Clients ===== */
+  #industries{ background:var(--paper-2); border-top:1px solid var(--line-light); border-bottom:1px solid var(--line-light); }
+  .industries-row{
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    border:1px solid var(--line-light);
+  }
+  .industry-tile{
+    padding:32px 16px;
+    text-align:center;
+    border-right:1px solid var(--line-light);
+    font-size:0.85rem; font-weight:600; color:var(--muted-dark);
+    transition:color .2s, background .2s;
+  }
+  .industry-tile:last-child{ border-right:none; }
+  .industry-tile:hover{ color:var(--blue); background:#f6f9ff; }
+
+  /* ===== CTA ===== */
+  #cta{
+    background:linear-gradient(135deg, var(--navy) 0%, #163259 100%);
+    color:#fff;
+    text-align:left;
+    position:relative;
+    overflow:hidden;
+  }
+  .cta-inner{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:60px;
+    align-items:center;
+  }
+  .cta-inner h2{
+    font-size:clamp(1.9rem, 4vw, 2.6rem);
+    font-weight:700;
+    line-height:1.2;
+    margin-bottom:16px;
+  }
+  .cta-inner h2 .accent{ color:var(--blue-light); }
+  .cta-inner p{ color:var(--muted); font-size:1rem; line-height:1.7; max-width:480px; }
+  .cta-actions{ display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
+  .cta-actions .btn-primary{ width:100%; justify-content:center; }
+  .cta-actions .btn-secondary{ width:100%; justify-content:center; text-align:center; }
+  .cta-contact{
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid rgba(255,255,255,0.12);
+    font-size:0.88rem;
+    color:var(--muted);
+  }
+  .cta-contact a{ color:#fff; font-weight:600; }
+
+  /* ===== Footer ===== */
+  footer{
+    background:var(--navy);
+    color:var(--muted);
+    padding:64px 32px 32px;
+    border-top:1px solid var(--line);
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr 1fr 1fr 1fr;
+    gap:48px;
+    margin-bottom:48px;
+  }
+  .footer-brand .logo{ margin-bottom:18px; }
+  .footer-brand p{ font-size:0.9rem; line-height:1.7; max-width:300px; }
+  .footer-col h4{
+    color:#fff; font-size:0.85rem; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.1em;
+    margin-bottom:20px;
+  }
+  .footer-col ul{ list-style:none; display:grid; gap:12px; }
+  .footer-col a{ font-size:0.9rem; color:var(--muted); transition:color .2s; }
+  .footer-col a:hover{ color:var(--blue-light); }
+  .footer-bottom{
+    border-top:1px solid var(--line);
+    padding-top:28px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:0.82rem; flex-wrap:wrap; gap:12px;
+  }
+  .footer-tag{
+    color:var(--blue-light); font-weight:600;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 980px){
+    nav ul{ display:none; }
+    .menu-toggle{ display:flex; }
+    .hero-content{ grid-template-columns:1fr; gap:48px; padding:40px 24px 100px; }
+    .hero-visual{ order:-1; max-width:280px; margin:0 auto; }
+    .hero-stats{ position:static; margin-top:48px; flex-direction:column; }
+    .stat{ border-right:none; border-bottom:1px solid var(--line-light); }
+    .stat:last-child{ border-bottom:none; }
+    section{ padding:80px 24px 70px; }
+    .section-head{ grid-template-columns:1fr; gap:20px; }
+    .about-grid{ grid-template-columns:1fr; gap:48px; }
+    .about-visual{ margin:0 auto; }
+    .services-grid{ grid-template-columns:repeat(2, 1fr); }
+    .service-card:nth-child(2n){ border-right:none; }
+    .service-card:nth-child(4n){ border-right:1px solid var(--line-light); }
+    .why-grid{ grid-template-columns:1fr; }
+    .process-track{ grid-template-columns:1fr; gap:40px; }
+    .process-step::after{ display:none; }
+    .industries-row{ grid-template-columns:repeat(3, 1fr); }
+    .industry-tile{ border-bottom:1px solid var(--line-light); }
+    .cta-inner{ grid-template-columns:1fr; gap:36px; }
+  }
+  @media (max-width: 560px){
+    .services-grid{ grid-template-columns:1fr; }
+    .service-card{ border-right:none !important; }
+    .industries-row{ grid-template-columns:repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="nav-wrap">
+    <a href="#home" class="logo">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#5b9bff"/>
+            <stop offset="100%" stop-color="#1e3a8a"/>
+          </linearGradient>
+        </defs>
+        <path d="M68 8 L92 8 L62 32 L40 32 L40 32 L36 32 C30 32 25 36 25 42 C25 48 30 52 36 52 L64 52 C70 52 75 56 75 62 C75 68 70 72 64 72 L8 72 L32 92 L64 92 C76 92 86 82 86 70 C86 60 78 52 68 50 C78 48 86 40 86 30 C86 18 76 8 64 8 Z" fill="url(#navLogoGrad)"/>
+      </svg>
+      <span>SARGA<span class="logo-text-sub">TECHNOLOGY</span></span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#home">Beranda</a></li>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#services">Layanan</a></li>
+        <li><a href="#why">Keunggulan</a></li>
+        <li><a href="#process">Proses</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+    </nav>
+    <a href="#contact" class="nav-cta">Konsultasi Gratis</a>
+    <button class="menu-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home" style="padding-bottom:120px;">
+  <svg class="hero-bg-circuit" viewBox="0 0 1280 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g opacity="0.5">
+      <path class="circuit-line" d="M900 100 L1050 100 L1050 220 L1180 220" stroke="#1c3354"/>
+      <path class="circuit-line" d="M950 350 L1100 350 L1100 500" stroke="#1c3354"/>
+      <path class="circuit-line" d="M1000 600 L1150 600 L1150 720 L1280 720" stroke="#1c3354"/>
+      <path class="circuit-line" d="M850 250 L850 380 L750 380" stroke="#1c3354"/>
+      <circle class="circuit-node" cx="1180" cy="220" r="4" fill="#0a1628" stroke="#1c3354"/>
+      <circle class="circuit-node" cx="1100" cy="500" r="4" fill="#0a1628" stroke="#1c3354"/>
+      <circle class="circuit-node" cx="750" cy="380" r="4" fill="#0a1628" stroke="#1c3354"/>
+      <circle class="circuit-node" cx="900" cy="100" r="4" fill="#0a1628" stroke="#1c3354"/>
+    </g>
+  </svg>
+
+  <div class="hero-content">
+    <div>
+      <div class="eyebrow"><span class="dash"></span> Mitra Teknologi UMKM &amp; Bisnis Berkembang</div>
+      <h1>Technology Partner<br>for <span class="accent">Your Business</span><br>Growth</h1>
+      <p>SARGA Technology membantu bisnis Anda memanfaatkan teknologi secara efektif, aman, dan efisien — dari IT support harian hingga keamanan sistem digital.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">
+          Mulai Konsultasi
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#services" class="btn-secondary">Lihat Layanan</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="sGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#5b9bff"/>
+            <stop offset="100%" stop-color="#1e3a8a"/>
+          </linearGradient>
+        </defs>
+        <!-- Big S shape echoing logo -->
+        <path class="draw" d="M270 40 L360 40 L240 130 L150 130 C120 130 100 152 100 180 C100 208 120 230 150 230 L260 230 C290 230 310 252 310 280 C310 308 290 330 260 330 L40 330 L150 380 L260 380 C310 380 350 340 350 290 C350 250 322 218 282 208 C322 198 350 166 350 126 C350 76 310 40 260 40 Z"
+          fill="none" stroke="url(#sGrad)" stroke-width="3" stroke-linejoin="round"/>
+        <!-- circuit branches -->
+        <g class="circuit-line">
+          <path d="M260 230 L320 230 L320 190" />
+          <path d="M150 130 L90 130 L90 90" />
+          <path d="M260 380 L260 340" />
+        </g>
+        <circle class="circuit-node circuit-node-filled pulse" cx="320" cy="190" r="5"/>
+        <circle class="circuit-node circuit-node-filled pulse pulse-delay" cx="90" cy="90" r="5"/>
+        <circle class="circuit-node circuit-node-filled pulse" cx="260" cy="340" r="5"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="num"><span>24</span>/7</div>
+      <div class="label">IT Support Responsif</div>
+    </div>
+    <div class="stat">
+      <div class="num"><span>4</span> Layanan Inti</div>
+      <div class="label">Infrastruktur hingga Keamanan</div>
+    </div>
+    <div class="stat">
+      <div class="num"><span>100</span>%</div>
+      <div class="label">Fokus pada UMKM &amp; Bisnis Berkembang</div>
+    </div>
+    <div class="stat">
+      <div class="num"><span>5.0</span></div>
+      <div class="label">Siap Hadapi Era Society 5.0</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ABOUT ===== -->
+<section id="about" style="padding-top:180px;">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual">
+        <svg viewBox="0 0 460 460" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="aboutGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#5b9bff"/>
+              <stop offset="100%" stop-color="#1e3a8a"/>
+            </linearGradient>
+          </defs>
+          <rect x="20" y="20" width="420" height="420" rx="2" fill="none" stroke="#e3e7ef" stroke-width="1.5"/>
+          <!-- network grid representing infrastructure -->
+          <g stroke="#e3e7ef" stroke-width="1">
+            <line x1="20" y1="160" x2="440" y2="160"/>
+            <line x1="20" y1="300" x2="440" y2="300"/>
+            <line x1="160" y1="20" x2="160" y2="440"/>
+            <line x1="300" y1="20" x2="300" y2="440"/>
+          </g>
+          <!-- circuit network paths -->
+          <g class="circuit-line" stroke="url(#aboutGrad)" stroke-width="2.5">
+            <path d="M90 90 L160 90 L160 160 L300 160 L300 230 L370 230"/>
+            <path d="M90 370 L160 370 L160 300 L230 300 L230 230"/>
+            <path d="M370 90 L300 90 L300 160"/>
+          </g>
+          <circle cx="90" cy="90" r="7" fill="#0d1b2e"/>
+          <circle cx="370" cy="230" r="9" fill="#2f6bff"/>
+          <circle cx="90" cy="370" r="7" fill="#0d1b2e"/>
+          <circle cx="230" cy="230" r="7" fill="#0d1b2e"/>
+          <circle cx="370" cy="90" r="7" fill="#0d1b2e"/>
+          <circle cx="160" cy="160" r="4" fill="#5b9bff"/>
+          <circle cx="300" cy="160" r="4" fill="#5b9bff"/>
+          <circle cx="160" cy="300" r="4" fill="#5b9bff"/>
+        </svg>
+      </div>
+      <div class="about-copy">
+        <div class="section-tag"><span class="dash"></span> Tentang Kami</div>
+        <h3>Mitra teknologi untuk UMKM dan bisnis yang terus bertumbuh</h3>
+        <p>SARGA Technology hadir untuk membantu bisnis kecil dan berkembang memanfaatkan teknologi secara efektif, aman, dan efisien. Kami percaya teknologi yang tepat bukan soal seberapa rumit sistemnya — tetapi seberapa nyata dampaknya bagi operasional bisnis Anda sehari-hari.</p>
+        <p>Dari perawatan perangkat, jaringan kantor, kehadiran online, hingga proteksi data — tim kami bekerja sebagai bagian dari bisnis Anda, bukan sekadar vendor.</p>
+        <div class="about-points">
+          <div class="about-point">
+            <span class="num mono">01</span>
+            <div>
+              <h4>Pendekatan yang Dipersonalisasi</h4>
+              <p>Solusi disesuaikan dengan skala dan kebutuhan operasional bisnis Anda, bukan paket generik.</p>
+            </div>
+          </div>
+          <div class="about-point">
+            <span class="num mono">02</span>
+            <div>
+              <h4>Respons Cepat &amp; Terukur</h4>
+              <p>Remote support dan maintenance rutin agar gangguan teknis tidak menghambat operasional.</p>
+            </div>
+          </div>
+          <div class="about-point">
+            <span class="num mono">03</span>
+            <div>
+              <h4>Keamanan Sebagai Prioritas</h4>
+              <p>Sistem dan data bisnis Anda dilindungi dari ancaman digital sejak awal implementasi.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-tag"><span class="dash"></span> Layanan Kami</div>
+        <h2>Solusi Teknologi untuk Bisnis Anda</h2>
+      </div>
+      <p class="desc">Empat pilar layanan yang dirancang untuk menjaga bisnis Anda tetap berjalan, terhubung, dan terlindungi — dari infrastruktur dasar hingga kehadiran digital.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="idx mono">01</span>
+        <div class="icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="8" width="36" height="24" rx="2" stroke="#2f6bff" stroke-width="2"/>
+            <line x1="18" y1="40" x2="30" y2="40" stroke="#2f6bff" stroke-width="2" stroke-linecap="round"/>
+            <line x1="24" y1="32" x2="24" y2="40" stroke="#2f6bff" stroke-width="2"/>
+            <path d="M14 20 L20 20 L20 24" stroke="#2f6bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="14" cy="20" r="1.5" fill="#2f6bff"/>
+          </svg>
+        </div>
+        <h3>IT Support</h3>
+        <p>Perawatan &amp; perbaikan perangkat, remote support, dan maintenance rutin untuk menjaga produktivitas tim Anda.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="idx mono">02</span>
+        <div class="icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="20" y="6" width="8" height="8" rx="1" stroke="#2f6bff" stroke-width="2"/>
+            <rect x="6" y="32" width="8" height="8" rx="1" stroke="#2f6bff" stroke-width="2"/>
+            <rect x="34" y="32" width="8" height="8" rx="1" stroke="#2f6bff" stroke-width="2"/>
+            <path d="M24 14 L24 22 L10 22 L10 32 M24 22 L38 22 L38 32" stroke="#2f6bff" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Network Solution</h3>
+        <p>Setup jaringan, WiFi, dan infrastruktur yang stabil &amp; aman untuk seluruh kebutuhan konektivitas kantor.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="idx mono">03</span>
+        <div class="icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="18" stroke="#2f6bff" stroke-width="2"/>
+            <ellipse cx="24" cy="24" rx="8" ry="18" stroke="#2f6bff" stroke-width="2"/>
+            <line x1="6" y1="24" x2="42" y2="24" stroke="#2f6bff" stroke-width="2"/>
+          </svg>
+        </div>
+        <h3>Web Development</h3>
+        <p>Pembuatan website profesional untuk meningkatkan kehadiran digital dan kredibilitas bisnis Anda.</p>
+      </div>
+
+      <div class="service-card">
+        <span class="idx mono">04</span>
+        <div class="icon">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M24 5 L40 11 L40 24 C40 34 33 41 24 44 C15 41 8 34 8 24 L8 11 Z" stroke="#2f6bff" stroke-width="2" stroke-linejoin="round"/>
+            <path d="M17 24 L22 29 L31 19" stroke="#2f6bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Cyber Security</h3>
+        <p>Lindungi data dan sistem bisnis Anda dari ancaman digital dengan proteksi yang berkelanjutan.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== WHY / KEUNGGULAN ===== -->
+<section id="why">
+  <svg class="hero-bg-circuit" viewBox="0 0 1280 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute; top:0; left:0; opacity:0.25; height:100%;">
+    <path class="circuit-line" d="M50 50 L200 50 L200 150 L350 150" stroke="#1c3354"/>
+    <circle cx="350" cy="150" r="4" fill="#0a1628" stroke="#1c3354"/>
+    <circle cx="50" cy="50" r="4" fill="#0a1628" stroke="#1c3354"/>
+  </svg>
+  <div class="section-inner" style="position:relative; z-index:2;">
+    <div class="section-head">
+      <div>
+        <div class="section-tag"><span class="dash"></span> Mengapa SARGA</div>
+        <h2>Bersama SARGA, Siap Hadapi Era Society 5.0</h2>
+      </div>
+      <p class="desc">Kami membantu bisnis Anda beradaptasi, berinovasi, dan bertumbuh di era digital yang serba terhubung — dengan hasil yang terasa langsung di operasional harian.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2 L4 14 L11 14 L10 22 L20 9 L13 9 Z" stroke="#5b9bff" stroke-width="1.6" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Efisien</h3>
+        <p>Proses bisnis yang lebih cepat dan produktif dengan dukungan teknologi yang tepat sasaran.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2 L20 6 L20 12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 L4 6 Z" stroke="#5b9bff" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M9 12 L11.5 14.5 L16 9" stroke="#5b9bff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Aman</h3>
+        <p>Sistem terlindungi secara berkelanjutan, sehingga bisnis Anda dapat berjalan dengan lebih tenang.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="8" cy="8" r="3" stroke="#5b9bff" stroke-width="1.6"/>
+            <circle cx="17" cy="9" r="2.5" stroke="#5b9bff" stroke-width="1.6"/>
+            <path d="M3 19 C3 15.5 5.5 13 8 13 C10.5 13 13 15.5 13 19" stroke="#5b9bff" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M14 14 C16 14 21 15.5 21 19" stroke="#5b9bff" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Berkembang</h3>
+        <p>Teknologi yang tepat untuk mendukung pertumbuhan bisnis Anda di masa depan, kapan pun Anda siap.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROCESS ===== -->
+<section id="process">
+  <div class="section-inner">
+    <div class="section-head">
+      <div>
+        <div class="section-tag"><span class="dash"></span> Cara Kerja</div>
+        <h2>Proses Kolaborasi yang Transparan</h2>
+      </div>
+      <p class="desc">Empat langkah sederhana yang kami lalui bersama, mulai dari memahami kebutuhan hingga dukungan berkelanjutan setelah implementasi.</p>
+    </div>
+
+    <div class="process-track">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <h3>Konsultasi Kebutuhan</h3>
+        <p>Kami diskusikan kondisi sistem dan tantangan teknologi yang dihadapi bisnis Anda saat ini.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <h3>Rencana &amp; Penawaran</h3>
+        <p>Tim kami menyusun rencana solusi serta estimasi biaya dan waktu pengerjaan yang jelas.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <h3>Implementasi</h3>
+        <p>Eksekusi solusi — instalasi jaringan, pengembangan website, atau penguatan keamanan sistem.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <h3>Dukungan Berkelanjutan</h3>
+        <p>Maintenance rutin dan IT support agar sistem Anda tetap berjalan optimal dalam jangka panjang.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INDUSTRIES ===== -->
+<section id="industries">
+  <div class="section-inner">
+    <div class="section-head" style="margin-bottom:40px;">
+      <div>
+        <div class="section-tag"><span class="dash"></span> Siapa yang Kami Bantu</div>
+        <h2>Cocok untuk Berbagai Jenis Bisnis</h2>
+      </div>
+      <p class="desc">Dari toko ritel hingga jasa profesional, solusi kami dirancang agar mudah diadopsi oleh bisnis dengan skala dan sumber daya yang berbeda-beda.</p>
+    </div>
+    <div class="industries-row">
+      <div class="industry-tile">Ritel &amp; UMKM</div>
+      <div class="industry-tile">Jasa Profesional</div>
+      <div class="industry-tile">F&amp;B</div>
+      <div class="industry-tile">Pendidikan</div>
+      <div class="industry-tile">Kesehatan</div>
+      <div class="industry-tile">Manufaktur</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section id="cta">
+  <div class="section-inner cta-inner">
+    <div>
+      <div class="section-tag" style="color:var(--blue-light);"><span class="dash" style="background:var(--blue-light);"></span> Mulai Sekarang</div>
+      <h2>Siap membawa bisnis Anda <span class="accent">lebih efisien, aman, dan berkembang?</span></h2>
+      <p>Ceritakan kebutuhan teknologi bisnis Anda — tim SARGA Technology akan membantu menemukan solusi yang paling sesuai, tanpa komitmen di awal.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="#contact" class="btn-primary">Hubungi Tim Kami</a>
+      <a href="#" class="btn-secondary">Pelajari Layanan</a>
+      <div class="cta-contact">
+        Atau hubungi langsung melalui<br>
+        <a href="https://www.sargatechnology.id" target="_blank">www.sargatechnology.id</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer id="contact">
+  <div class="section-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M68 8 L92 8 L62 32 L40 32 L40 32 L36 32 C30 32 25 36 25 42 C25 48 30 52 36 52 L64 52 C70 52 75 56 75 62 C75 68 70 72 64 72 L8 72 L32 92 L64 92 C76 92 86 82 86 70 C86 60 78 52 68 50 C78 48 86 40 86 30 C86 18 76 8 64 8 Z" fill="url(#navLogoGrad)"/>
+          </svg>
+          <span>SARGA<span class="logo-text-sub">TECHNOLOGY</span></span>
+        </a>
+        <p>Reliable Technology. Stronger Business. Mitra teknologi untuk UMKM dan bisnis yang terus bertumbuh.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="#about">Tentang Kami</a></li>
+          <li><a href="#services">Layanan</a></li>
+          <li><a href="#why">Keunggulan</a></li>
+          <li><a href="#process">Proses Kerja</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Layanan</h4>
+        <ul>
+          <li><a href="#services">IT Support</a></li>
+          <li><a href="#services">Network Solution</a></li>
+          <li><a href="#services">Web Development</a></li>
+          <li><a href="#services">Cyber Security</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li><a href="https://www.sargatechnology.id" target="_blank">www.sargatechnology.id</a></li>
+          <li><a href="mailto:hello@sargatechnology.id">hello@sargatechnology.id</a></li>
+          <li><a href="#">Bandung, Indonesia</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SARGA Technology. All rights reserved.</span>
+      <span class="footer-tag mono">#GrowWithSarga</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const toggle = document.querySelector('.menu-toggle');
+  const navUl = document.querySelector('nav ul');
+  toggle.addEventListener('click', () => {
+    const isOpen = navUl.style.display === 'flex';
+    navUl.style.display = isOpen ? 'none' : 'flex';
+    navUl.style.flexDirection = 'column';
+    navUl.style.position = 'absolute';
+    navUl.style.top = '64px';
+    navUl.style.left = '0';
+    navUl.style.right = '0';
+    navUl.style.background = 'rgba(10,22,40,0.97)';
+    navUl.style.padding = '24px 32px';
+    navUl.style.gap = '20px';
+  });
+
+  // Scroll reveal for cards
+  const reveal = document.querySelectorAll('.service-card, .why-card, .process-step, .about-point');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  reveal.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity .6s ease, transform .6s ease';
+    io.observe(el);
+  });
+</script>
+
+</body>
+</html>
