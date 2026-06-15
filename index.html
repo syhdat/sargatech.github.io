@@ -1,0 +1,1623 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SARGA Technology — Reliable Technology. Stronger Business.</title>
+<meta name="description" content="SARGA Technology — mitra teknologi untuk UMKM dan bisnis berkembang. IT Support, Network Solution, Web Development, Cyber Security, IT Maintenance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   TOKENS
+============================================= */
+:root{
+  --navy:#0a1628;
+  --navy-2:#0f1f38;
+  --navy-3:#162d50;
+  --blue:#2f6bff;
+  --blue-light:#5b9bff;
+  --blue-dim:rgba(47,107,255,0.12);
+  --ink:#0d1b2e;
+  --paper:#f4f6fb;
+  --paper-2:#ffffff;
+  --line:#1c3354;
+  --line-light:#dde2ee;
+  --muted:#93a4c1;
+  --muted-dark:#5b6b85;
+  --green:#22c55e;
+  --wa:#25d366;
+  --shadow:0 8px 32px -8px rgba(10,22,40,0.18);
+  --shadow-lg:0 20px 60px -16px rgba(10,22,40,0.28);
+}
+
+/* =============================================
+   RESET & BASE
+============================================= */
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Inter',sans-serif;background:var(--paper);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.02em;}
+a{text-decoration:none;color:inherit;}
+img{display:block;max-width:100%;}
+ul{list-style:none;}
+button{cursor:pointer;border:none;background:none;font-family:inherit;}
+
+/* =============================================
+   TYPOGRAPHY HELPERS
+============================================= */
+.mono{font-family:'JetBrains Mono',monospace;letter-spacing:0.04em;}
+.accent{color:var(--blue-light);}
+.text-blue{color:var(--blue);}
+
+/* =============================================
+   LAYOUT HELPERS
+============================================= */
+.wrap{max-width:1240px;margin:0 auto;padding:0 24px;}
+.section-gap{padding:100px 0;}
+.section-gap-sm{padding:72px 0;}
+
+/* Section labels */
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  color:var(--blue-light);font-size:0.75rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.12em;
+  margin-bottom:18px;
+}
+.eyebrow .dash{width:24px;height:1.5px;background:var(--blue-light);flex-shrink:0;}
+
+.section-title{font-size:clamp(1.75rem,3.5vw,2.6rem);font-weight:700;line-height:1.15;color:var(--navy);}
+.section-title.light{color:#fff;}
+.section-sub{font-size:1rem;line-height:1.75;color:var(--muted-dark);margin-top:14px;max-width:540px;}
+.section-sub.light{color:var(--muted);}
+
+.two-col-head{
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;
+  margin-bottom:56px;
+}
+
+/* =============================================
+   BUTTONS
+============================================= */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 28px;border-radius:3px;font-weight:600;
+  font-size:0.93rem;font-family:'Inter',sans-serif;
+  transition:all .2s ease;cursor:pointer;
+}
+.btn-primary{background:var(--blue);color:#fff;border:1.5px solid var(--blue);}
+.btn-primary:hover{background:#4a7fff;border-color:#4a7fff;transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(47,107,255,0.45);}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,0.25);}
+.btn-outline:hover{border-color:var(--blue-light);background:rgba(255,255,255,0.05);transform:translateY(-2px);}
+.btn-outline-dark{background:transparent;color:var(--navy);border:1.5px solid var(--line-light);}
+.btn-outline-dark:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px);}
+.btn-wa{background:var(--wa);color:#fff;border:1.5px solid var(--wa);}
+.btn-wa:hover{background:#1ebe5a;transform:translateY(-2px);box-shadow:0 8px 24px -6px rgba(37,211,102,0.4);}
+.btn svg{flex-shrink:0;width:17px;height:17px;}
+.btn-sm{padding:10px 20px;font-size:0.85rem;}
+
+/* =============================================
+   HEADER / NAV
+============================================= */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(10,22,40,0.9);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(255,255,255,0.07);
+  transition:background .3s;
+}
+.nav-inner{
+  max-width:1240px;margin:0 auto;padding:0 24px;
+  height:66px;display:flex;align-items:center;justify-content:space-between;
+  gap:24px;
+}
+.logo{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:1.1rem;flex-shrink:0;}
+.logo-mark{width:32px;height:32px;}
+.logo span{line-height:1;}
+.logo-sub{font-size:0.52rem;font-weight:500;letter-spacing:0.28em;color:var(--blue-light);display:block;margin-top:2px;}
+nav{display:flex;align-items:center;gap:4px;}
+.nav-link{
+  color:var(--muted);font-size:0.88rem;font-weight:500;
+  padding:8px 14px;border-radius:3px;
+  transition:color .2s,background .2s;position:relative;
+}
+.nav-link:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.nav-actions{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+
+/* Mobile nav */
+.hamburger{
+  display:none;flex-direction:column;justify-content:center;gap:5px;
+  width:40px;height:40px;padding:8px;border-radius:3px;
+  transition:background .2s;
+}
+.hamburger:hover{background:rgba(255,255,255,0.08);}
+.hamburger span{width:100%;height:1.5px;background:#fff;display:block;transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0);}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+
+.mobile-nav{
+  display:none;position:fixed;top:66px;left:0;right:0;bottom:0;
+  background:rgba(8,16,30,0.98);backdrop-filter:blur(20px);
+  z-index:190;overflow-y:auto;
+  flex-direction:column;padding:32px 24px 40px;gap:6px;
+  transform:translateY(-20px);opacity:0;
+  transition:opacity .25s,transform .25s;
+}
+.mobile-nav.open{display:flex;transform:translateY(0);opacity:1;}
+.mobile-nav a{
+  display:block;padding:16px 20px;color:var(--muted);
+  font-size:1.1rem;font-weight:500;border-radius:4px;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  transition:color .2s,background .2s;
+}
+.mobile-nav a:hover{color:#fff;background:rgba(255,255,255,0.06);}
+.mobile-nav-cta{margin-top:20px;}
+
+/* =============================================
+   HERO
+============================================= */
+.hero{
+  position:relative;min-height:100vh;
+  background:linear-gradient(150deg,var(--navy) 0%,var(--navy-2) 50%,#142a4a 100%);
+  color:#fff;display:flex;flex-direction:column;justify-content:center;
+  overflow:hidden;padding-top:66px;
+}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:1240px;margin:0 auto;padding:80px 24px 140px;
+  display:grid;grid-template-columns:1.1fr 0.9fr;gap:72px;align-items:center;
+  width:100%;
+}
+.hero-text .eyebrow{color:var(--blue-light);}
+.hero h1{
+  font-size:clamp(2.4rem,5.5vw,4.2rem);font-weight:700;line-height:1.08;
+  margin-bottom:22px;
+}
+.hero-desc{
+  color:var(--muted);font-size:1.05rem;line-height:1.75;
+  max-width:480px;margin-bottom:36px;
+}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;}
+
+/* Hero visual */
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center;}
+.hero-visual svg{width:100%;max-width:400px;height:auto;}
+.path-draw{stroke-dasharray:1500;stroke-dashoffset:1500;animation:draw 2.6s ease forwards .4s;}
+@keyframes draw{to{stroke-dashoffset:0;}}
+.node-pulse{animation:pulse 2.8s ease-in-out infinite;}
+.node-pulse-2{animation:pulse 2.8s ease-in-out infinite 1.4s;}
+@keyframes pulse{0%,100%{opacity:.2;transform:scale(1);}50%{opacity:1;transform:scale(1.5);}}
+
+/* Stats bar */
+.hero-stats{
+  position:absolute;bottom:0;left:0;right:0;z-index:5;
+  background:var(--paper-2);border-top:1px solid var(--line-light);
+}
+.stats-inner{
+  max-width:1240px;margin:0 auto;padding:0 24px;
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.stat{
+  padding:26px 20px;border-right:1px solid var(--line-light);
+}
+.stat:last-child{border-right:none;}
+.stat-num{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:1.9rem;font-weight:700;color:var(--navy);
+  display:flex;align-items:baseline;gap:3px;
+}
+.stat-num .unit{color:var(--blue);font-size:1.2rem;}
+.stat-label{font-size:0.82rem;color:var(--muted-dark);margin-top:5px;}
+
+/* =============================================
+   LOGO TICKER (client trust)
+============================================= */
+.ticker{
+  background:var(--paper-2);
+  border-bottom:1px solid var(--line-light);
+  padding:22px 0;overflow:hidden;
+}
+.ticker-track{
+  display:flex;gap:64px;align-items:center;
+  animation:ticker 22s linear infinite;
+  width:max-content;
+}
+.ticker-track:hover{animation-play-state:paused;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.ticker-item{
+  font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;
+  color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;
+  white-space:nowrap;display:flex;align-items:center;gap:10px;
+}
+.ticker-dot{width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0;}
+
+/* =============================================
+   ABOUT
+============================================= */
+#about{background:var(--paper-2);}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.about-visual{
+  position:relative;border-radius:4px;overflow:hidden;
+  background:var(--paper);border:1px solid var(--line-light);
+  aspect-ratio:1/1;max-width:480px;
+}
+.about-visual svg{width:100%;height:100%;}
+.about-badge{
+  position:absolute;bottom:20px;right:20px;
+  background:var(--navy);color:#fff;
+  padding:14px 18px;border-radius:3px;
+  font-family:'Space Grotesk',sans-serif;
+}
+.about-badge .big{font-size:1.6rem;font-weight:700;color:var(--blue-light);display:block;}
+.about-badge small{font-size:0.72rem;color:var(--muted);display:block;margin-top:2px;}
+.about-text h2{font-size:clamp(1.7rem,3vw,2.2rem);color:var(--navy);margin-bottom:16px;}
+.about-text p{color:var(--muted-dark);line-height:1.78;font-size:0.97rem;margin-bottom:16px;}
+.about-points{margin-top:28px;display:grid;gap:20px;}
+.about-pt{display:flex;gap:14px;align-items:flex-start;}
+.about-pt-icon{
+  width:38px;height:38px;border-radius:3px;
+  background:var(--blue-dim);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  margin-top:1px;
+}
+.about-pt-icon svg{width:18px;height:18px;}
+.about-pt h4{font-size:0.95rem;font-weight:600;color:var(--navy);margin-bottom:4px;}
+.about-pt p{font-size:0.88rem;color:var(--muted-dark);line-height:1.6;margin:0;}
+
+/* =============================================
+   SERVICES
+============================================= */
+#services{background:var(--paper);}
+.services-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line-light);
+  border:1px solid var(--line-light);border-radius:4px;overflow:hidden;
+}
+.svc-card{
+  background:var(--paper-2);padding:36px 32px;
+  position:relative;transition:background .25s;
+  display:flex;flex-direction:column;
+}
+.svc-card:hover{background:#f0f5ff;}
+.svc-card:hover .svc-arrow{opacity:1;transform:translate(3px,-3px);}
+.svc-idx{
+  font-family:'JetBrains Mono',monospace;font-size:0.72rem;
+  color:var(--line-light);font-weight:500;
+  position:absolute;top:22px;right:24px;
+}
+.svc-icon{
+  width:48px;height:48px;
+  background:var(--blue-dim);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;flex-shrink:0;
+}
+.svc-icon svg{width:24px;height:24px;}
+.svc-card h3{font-size:1.05rem;font-weight:600;color:var(--navy);margin-bottom:10px;}
+.svc-card p{font-size:0.9rem;color:var(--muted-dark);line-height:1.68;flex-grow:1;}
+.svc-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line-light);
+}
+.svc-tag{
+  font-size:0.75rem;font-weight:600;color:var(--blue);
+  background:var(--blue-dim);padding:4px 10px;border-radius:2px;
+}
+.svc-arrow{
+  opacity:0;transition:all .25s;color:var(--blue);
+  font-size:1.1rem;line-height:1;font-weight:600;
+}
+
+/* =============================================
+   WHY / KEUNGGULAN
+============================================= */
+#why{
+  background:var(--navy);color:#fff;
+  position:relative;overflow:hidden;
+}
+.why-bg{position:absolute;inset:0;pointer-events:none;opacity:0.2;}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);}
+.why-card{
+  background:var(--navy-2);padding:44px 36px;
+  transition:background .25s;position:relative;overflow:hidden;
+}
+.why-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue),var(--blue-light));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s;
+}
+.why-card:hover{background:rgba(255,255,255,0.04);}
+.why-card:hover::before{transform:scaleX(1);}
+.why-icon{
+  width:50px;height:50px;border:1px solid var(--line);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:22px;
+}
+.why-icon svg{width:24px;height:24px;}
+.why-card h3{font-size:1.15rem;font-weight:600;margin-bottom:10px;}
+.why-card p{color:var(--muted);font-size:0.9rem;line-height:1.7;}
+
+/* =============================================
+   PROCESS
+============================================= */
+#process{background:var(--paper-2);}
+.process-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;position:relative;
+}
+.process-grid::after{
+  content:'';position:absolute;
+  top:19px;left:10%;right:10%;height:1px;
+  background:repeating-linear-gradient(90deg,var(--blue) 0 6px,transparent 6px 14px);
+  z-index:0;
+}
+.proc-step{position:relative;z-index:1;padding:0 24px;}
+.proc-num{
+  width:38px;height:38px;border-radius:50%;
+  border:2px solid var(--blue);background:var(--paper-2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-size:0.9rem;font-weight:700;color:var(--blue);
+  margin-bottom:22px;
+}
+.proc-step h3{font-size:1rem;font-weight:600;color:var(--navy);margin-bottom:8px;}
+.proc-step p{font-size:0.88rem;color:var(--muted-dark);line-height:1.65;}
+
+/* =============================================
+   INDUSTRIES
+============================================= */
+#industries{background:var(--paper);}
+.ind-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:16px;
+}
+.ind-card{
+  background:var(--paper-2);border:1px solid var(--line-light);
+  border-radius:4px;padding:28px 24px;
+  display:flex;align-items:flex-start;gap:16px;
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+}
+.ind-card:hover{border-color:var(--blue);box-shadow:var(--shadow);transform:translateY(-2px);}
+.ind-icon{
+  width:44px;height:44px;border-radius:3px;
+  background:var(--blue-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.ind-icon svg{width:22px;height:22px;}
+.ind-card h4{font-size:0.97rem;font-weight:600;color:var(--navy);margin-bottom:6px;}
+.ind-card p{font-size:0.85rem;color:var(--muted-dark);line-height:1.6;}
+
+/* =============================================
+   TESTIMONIALS
+============================================= */
+#testimonials{background:var(--paper-2);}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.testi-card{
+  background:var(--paper);border:1px solid var(--line-light);border-radius:4px;
+  padding:30px 28px;display:flex;flex-direction:column;gap:16px;
+  transition:box-shadow .2s,transform .2s;
+}
+.testi-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
+.testi-stars{display:flex;gap:3px;}
+.testi-stars span{color:#f59e0b;font-size:1rem;}
+.testi-text{font-size:0.93rem;color:var(--muted-dark);line-height:1.72;flex-grow:1;}
+.testi-author{display:flex;align-items:center;gap:12px;padding-top:14px;border-top:1px solid var(--line-light);}
+.testi-avatar{
+  width:40px;height:40px;border-radius:50%;background:var(--blue-dim);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:var(--blue);
+}
+.testi-name{font-size:0.88rem;font-weight:600;color:var(--navy);}
+.testi-role{font-size:0.78rem;color:var(--muted);}
+
+/* =============================================
+   FAQ
+============================================= */
+#faq{background:var(--paper);}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.faq-item{
+  background:var(--paper-2);border:1px solid var(--line-light);
+  border-radius:4px;overflow:hidden;
+}
+.faq-q{
+  width:100%;display:flex;justify-content:space-between;align-items:center;
+  padding:22px 24px;font-family:'Space Grotesk',sans-serif;
+  font-size:0.97rem;font-weight:600;color:var(--navy);
+  text-align:left;gap:16px;cursor:pointer;
+  transition:color .2s;
+}
+.faq-q:hover{color:var(--blue);}
+.faq-icon{
+  width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-light);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:1.1rem;color:var(--blue);transition:transform .3s,background .2s;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--blue);color:#fff;border-color:var(--blue);}
+.faq-a{
+  max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;
+  font-size:0.9rem;color:var(--muted-dark);line-height:1.72;padding:0 24px;
+}
+.faq-item.open .faq-a{max-height:300px;padding:0 24px 22px;}
+
+/* =============================================
+   PRICING
+============================================= */
+#pricing{background:var(--navy);color:#fff;position:relative;overflow:hidden;}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.pricing-card{
+  background:var(--navy-2);border:1px solid var(--line);
+  border-radius:4px;padding:36px 32px;
+  display:flex;flex-direction:column;gap:0;
+  position:relative;transition:border-color .25s;
+}
+.pricing-card:hover{border-color:var(--blue);}
+.pricing-card.featured{border-color:var(--blue);background:rgba(47,107,255,0.08);}
+.featured-badge{
+  position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:var(--blue);color:#fff;
+  font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+  padding:5px 16px;border-radius:0 0 4px 4px;
+}
+.plan-name{font-size:0.78rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:12px;}
+.plan-price{font-family:'Space Grotesk',sans-serif;margin-bottom:6px;}
+.plan-price .from{font-size:0.82rem;color:var(--muted);}
+.plan-price .num{font-size:2rem;font-weight:700;color:#fff;}
+.plan-price .per{font-size:0.82rem;color:var(--muted);}
+.plan-desc{font-size:0.88rem;color:var(--muted);margin-bottom:28px;line-height:1.6;}
+.plan-divider{height:1px;background:var(--line);margin-bottom:24px;}
+.plan-features{display:grid;gap:12px;margin-bottom:32px;flex-grow:1;}
+.plan-feat{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:0.88rem;color:var(--muted);line-height:1.5;
+}
+.plan-feat .check{color:var(--green);flex-shrink:0;font-size:1rem;margin-top:0px;}
+.plan-feat .cross{color:var(--muted-dark);flex-shrink:0;font-size:1rem;}
+
+/* =============================================
+   CTA STRIP
+============================================= */
+#cta{
+  background:linear-gradient(130deg,var(--navy-2) 0%,var(--navy-3) 100%);
+  color:#fff;position:relative;overflow:hidden;
+}
+.cta-inner{
+  display:grid;grid-template-columns:1.3fr 1fr;gap:60px;align-items:center;
+}
+.cta-text h2{font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:700;margin-bottom:14px;}
+.cta-text p{color:var(--muted);font-size:1rem;line-height:1.72;}
+.cta-btns{display:flex;flex-direction:column;gap:12px;}
+
+/* =============================================
+   CONTACT
+============================================= */
+#contact{background:var(--paper-2);}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;}
+.contact-info h2{font-size:clamp(1.6rem,3vw,2.1rem);color:var(--navy);margin-bottom:14px;}
+.contact-info p{color:var(--muted-dark);font-size:0.97rem;line-height:1.75;margin-bottom:32px;}
+.contact-items{display:grid;gap:18px;}
+.contact-item{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:18px 20px;background:var(--paper);border:1px solid var(--line-light);border-radius:3px;
+}
+.contact-item-icon{
+  width:40px;height:40px;background:var(--blue-dim);border-radius:3px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.contact-item-icon svg{width:20px;height:20px;}
+.ci-label{font-size:0.75rem;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px;}
+.ci-val{font-size:0.95rem;font-weight:500;color:var(--navy);}
+.ci-val a{color:var(--navy);transition:color .2s;}
+.ci-val a:hover{color:var(--blue);}
+
+/* Contact form */
+.contact-form-card{
+  background:var(--paper);border:1px solid var(--line-light);
+  border-radius:4px;padding:36px 32px;
+}
+.form-title{font-size:1.2rem;font-weight:600;color:var(--navy);margin-bottom:6px;}
+.form-sub{font-size:0.88rem;color:var(--muted-dark);margin-bottom:28px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.form-group{display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
+.form-group label{font-size:0.83rem;font-weight:600;color:var(--navy);}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;padding:11px 14px;border-radius:3px;
+  border:1.5px solid var(--line-light);background:var(--paper-2);
+  font-family:'Inter',sans-serif;font-size:0.9rem;color:var(--ink);
+  transition:border-color .2s;outline:none;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue);}
+.form-group textarea{resize:vertical;min-height:100px;}
+.form-submit{width:100%;justify-content:center;}
+.form-note{font-size:0.78rem;color:var(--muted);text-align:center;margin-top:12px;}
+
+/* =============================================
+   FOOTER
+============================================= */
+footer{background:var(--navy);color:var(--muted);border-top:1px solid var(--line);}
+.footer-main{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;
+  padding:64px 0 40px;
+}
+.footer-brand p{font-size:0.88rem;line-height:1.75;margin-top:16px;max-width:290px;}
+.footer-col h5{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:0.78rem;font-weight:700;color:#fff;
+  text-transform:uppercase;letter-spacing:0.12em;margin-bottom:18px;
+}
+.footer-col ul{display:grid;gap:11px;}
+.footer-col a{font-size:0.88rem;color:var(--muted);transition:color .2s;}
+.footer-col a:hover{color:var(--blue-light);}
+.footer-bottom{
+  border-top:1px solid var(--line);padding:22px 0;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+}
+.footer-bottom p{font-size:0.82rem;}
+.footer-hashtag{color:var(--blue-light);font-weight:600;font-family:'JetBrains Mono',monospace;}
+.footer-socials{display:flex;gap:12px;}
+.footer-social{
+  width:34px;height:34px;border-radius:3px;border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:border-color .2s,color .2s;
+}
+.footer-social:hover{border-color:var(--blue-light);color:var(--blue-light);}
+.footer-social svg{width:16px;height:16px;}
+
+/* =============================================
+   FLOATING WA BUTTON
+============================================= */
+.wa-float{
+  position:fixed;bottom:28px;right:28px;z-index:300;
+  width:56px;height:56px;border-radius:50%;
+  background:var(--wa);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 24px rgba(37,211,102,0.45);
+  transition:transform .2s,box-shadow .2s;
+  animation:wa-bounce 3s ease-in-out infinite;
+}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 10px 32px rgba(37,211,102,0.55);animation:none;}
+.wa-float svg{width:28px;height:28px;}
+.wa-tooltip{
+  position:absolute;right:66px;top:50%;transform:translateY(-50%);
+  background:var(--navy);color:#fff;font-size:0.8rem;font-weight:600;
+  padding:7px 12px;border-radius:3px;white-space:nowrap;
+  pointer-events:none;opacity:0;transition:opacity .2s;
+}
+.wa-float:hover .wa-tooltip{opacity:1;}
+@keyframes wa-bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+
+/* =============================================
+   SCROLL REVEAL
+============================================= */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-left{opacity:0;transform:translateX(-22px);transition:opacity .65s ease,transform .65s ease;}
+.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(22px);transition:opacity .65s ease,transform .65s ease;}
+.reveal-right.visible{opacity:1;transform:translateX(0);}
+
+/* =============================================
+   RESPONSIVE — TABLET (≤ 1024px)
+============================================= */
+@media(max-width:1024px){
+  .hero-content{grid-template-columns:1fr;gap:48px;padding:72px 24px 160px;}
+  .hero-visual{order:-1;max-width:280px;margin:0 auto;}
+  .hero h1{font-size:clamp(2.2rem,5vw,3.2rem);}
+  .stats-inner{grid-template-columns:repeat(2,1fr);}
+  .stat:nth-child(2){border-right:none;}
+  .stat:nth-child(3){border-top:1px solid var(--line-light);}
+  .about-grid{grid-template-columns:1fr;gap:48px;}
+  .about-visual{margin:0 auto;}
+  .two-col-head{grid-template-columns:1fr;gap:16px;}
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .why-grid{grid-template-columns:1fr 1fr;}
+  .process-grid{grid-template-columns:1fr 1fr;row-gap:36px;}
+  .process-grid::after{display:none;}
+  .ind-grid{grid-template-columns:1fr 1fr;}
+  .testi-grid{grid-template-columns:1fr 1fr;}
+  .faq-grid{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr 1fr;}
+  .cta-inner{grid-template-columns:1fr;gap:36px;}
+  .contact-grid{grid-template-columns:1fr;gap:40px;}
+  .footer-main{grid-template-columns:1fr 1fr;gap:36px;}
+}
+
+/* =============================================
+   RESPONSIVE — MOBILE (≤ 640px)
+============================================= */
+@media(max-width:640px){
+  nav{display:none;}
+  .nav-actions .btn:not(.hamburger-wrap){display:none;}
+  .hamburger{display:flex;}
+  .section-gap{padding:72px 0;}
+  .section-gap-sm{padding:56px 0;}
+
+  .hero-content{padding:60px 20px 160px;}
+  .hero h1{font-size:2.1rem;}
+  .hero-desc{font-size:0.95rem;}
+  .hero-btns{flex-direction:column;}
+  .hero-btns .btn{width:100%;justify-content:center;}
+  .hero-visual{max-width:220px;}
+
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .stat{padding:20px 16px;}
+  .stat-num{font-size:1.6rem;}
+
+  .services-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr;gap:1px;}
+  .process-grid{grid-template-columns:1fr;row-gap:32px;}
+  .ind-grid{grid-template-columns:1fr;}
+  .testi-grid{grid-template-columns:1fr;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .footer-main{grid-template-columns:1fr;gap:32px;}
+
+  .form-row{grid-template-columns:1fr;}
+  .contact-form-card{padding:28px 20px;}
+  .svc-card{padding:28px 24px;}
+  .why-card{padding:32px 24px;}
+
+  .wa-float{bottom:20px;right:20px;width:52px;height:52px;}
+}
+
+/* =============================================
+   UTILITY
+============================================= */
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- ======================================
+     FLOATING WHATSAPP
+======================================= -->
+<a href="https://wa.me/6285793663708?text=Halo%20SARGA%20Technology%2C%20saya%20ingin%20konsultasi%20mengenai%20layanan%20IT."
+   class="wa-float" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
+  <span class="wa-tooltip">Chat via WhatsApp</span>
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.529 5.862L.057 23.998l6.304-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.002-1.369l-.359-.213-3.72.976.994-3.625-.234-.373A9.822 9.822 0 0 1 2.182 12C2.182 6.572 6.572 2.182 12 2.182c5.428 0 9.818 4.39 9.818 9.818 0 5.428-4.39 9.818-9.818 9.818z"/></svg>
+</a>
+
+<!-- ======================================
+     HEADER
+======================================= -->
+<header id="header">
+  <div class="nav-inner">
+    <a href="#home" class="logo">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#5b9bff"/>
+            <stop offset="100%" stop-color="#1e3a8a"/>
+          </linearGradient>
+        </defs>
+        <path d="M68 8 L92 8 L62 32 L40 32 L36 32 C30 32 25 36 25 42 C25 48 30 52 36 52 L64 52 C70 52 75 56 75 62 C75 68 70 72 64 72 L8 72 L32 92 L64 92 C76 92 86 82 86 70 C86 60 78 52 68 50 C78 48 86 40 86 30 C86 18 76 8 64 8 Z" fill="url(#lg1)"/>
+      </svg>
+      <span>SARGA<span class="logo-sub">TECHNOLOGY</span></span>
+    </a>
+
+    <nav>
+      <a href="#about" class="nav-link">Tentang</a>
+      <a href="#services" class="nav-link">Layanan</a>
+      <a href="#why" class="nav-link">Keunggulan</a>
+      <a href="#pricing" class="nav-link">Harga</a>
+      <a href="#faq" class="nav-link">FAQ</a>
+      <a href="#contact" class="nav-link">Kontak</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a href="https://wa.me/6285793663708?text=Halo%20SARGA%20Technology%2C%20saya%20ingin%20konsultasi%20gratis."
+         class="btn btn-primary btn-sm" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.529 5.862L.057 23.998l6.304-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.002-1.369l-.359-.213-3.72.976.994-3.625-.234-.373A9.822 9.822 0 0 1 2.182 12C2.182 6.572 6.572 2.182 12 2.182c5.428 0 9.818 4.39 9.818 9.818 0 5.428-4.39 9.818-9.818 9.818z"/></svg>
+        Konsultasi Gratis
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#about" class="mobile-nav-link">Tentang Kami</a>
+  <a href="#services" class="mobile-nav-link">Layanan</a>
+  <a href="#why" class="mobile-nav-link">Keunggulan</a>
+  <a href="#process" class="mobile-nav-link">Proses Kerja</a>
+  <a href="#pricing" class="mobile-nav-link">Harga</a>
+  <a href="#industries" class="mobile-nav-link">Industri</a>
+  <a href="#faq" class="mobile-nav-link">FAQ</a>
+  <a href="#contact" class="mobile-nav-link">Kontak</a>
+  <a href="https://wa.me/6285793663708?text=Halo%20SARGA%20Technology%2C%20saya%20ingin%20konsultasi%20gratis."
+     class="btn btn-wa mobile-nav-cta" target="_blank" rel="noopener" style="justify-content:center;">
+    <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.529 5.862L.057 23.998l6.304-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.002-1.369l-.359-.213-3.72.976.994-3.625-.234-.373A9.822 9.822 0 0 1 2.182 12C2.182 6.572 6.572 2.182 12 2.182c5.428 0 9.818 4.39 9.818 9.818 0 5.428-4.39 9.818-9.818 9.818z"/></svg>
+    Chat WhatsApp Sekarang
+  </a>
+</div>
+
+<!-- ======================================
+     HERO
+======================================= -->
+<section class="hero" id="home">
+  <!-- Ambient circuit bg -->
+  <svg class="hero-bg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#1c3354" stroke-width="1.5" fill="none" opacity="0.7">
+      <path d="M1100 80 L1200 80 L1200 200 L1350 200"/>
+      <path d="M1300 400 L1400 400 L1400 550"/>
+      <path d="M980 700 L1100 700 L1100 820 L1300 820"/>
+      <path d="M1150 300 L1150 450 L1050 450"/>
+      <path d="M200 100 L100 100 L100 250 L50 250"/>
+      <path d="M300 600 L200 600 L200 750"/>
+    </g>
+    <g fill="#1c3354">
+      <circle cx="1350" cy="200" r="4"/>
+      <circle cx="1400" cy="550" r="4"/>
+      <circle cx="1050" cy="450" r="4"/>
+      <circle cx="50" cy="250" r="4"/>
+      <circle cx="200" cy="750" r="4"/>
+    </g>
+    <!-- glow orbs -->
+    <ellipse cx="1100" cy="200" rx="300" ry="200" fill="rgba(47,107,255,0.05)"/>
+    <ellipse cx="300" cy="700" rx="250" ry="180" fill="rgba(47,107,255,0.04)"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="eyebrow"><span class="dash"></span>Mitra Teknologi UMKM & Bisnis Berkembang</div>
+      <h1>Technology Partner<br>for <span class="accent">Your Business</span><br>Growth</h1>
+      <p class="hero-desc">SARGA Technology membantu bisnis kecil dan berkembang memanfaatkan teknologi secara efektif, aman, dan efisien — dari IT support harian hingga keamanan digital penuh.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/6285793663708?text=Halo%20SARGA%20Technology%2C%20saya%20ingin%20konsultasi%20gratis."
+           class="btn btn-wa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.529 5.862L.057 23.998l6.304-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.002-1.369l-.359-.213-3.72.976.994-3.625-.234-.373A9.822 9.822 0 0 1 2.182 12C2.182 6.572 6.572 2.182 12 2.182c5.428 0 9.818 4.39 9.818 9.818 0 5.428-4.39 9.818-9.818 9.818z"/></svg>
+          Konsultasi Gratis
+        </a>
+        <a href="#services" class="btn btn-outline">Lihat Layanan</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <svg viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="sGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#5b9bff"/>
+            <stop offset="100%" stop-color="#1a3572"/>
+          </linearGradient>
+        </defs>
+        <!-- S shape -->
+        <path class="path-draw"
+          d="M258 35 L340 35 L228 120 L148 120 C120 120 98 142 98 170 C98 198 120 220 148 220 L248 220 C276 220 298 242 298 270 C298 298 276 320 248 320 L38 320 L140 365 L248 365 C298 365 338 325 338 275 C338 238 315 207 282 198 C315 188 338 157 338 120 C338 72 298 35 248 35 Z"
+          fill="none" stroke="url(#sGrad)" stroke-width="3.5" stroke-linejoin="round"/>
+        <!-- circuit branches -->
+        <g stroke="#2f6bff" stroke-width="2" fill="none" stroke-linecap="round">
+          <path d="M248 220 L310 220 L310 178"/>
+          <path d="M148 120 L88 120 L88 78"/>
+          <path d="M248 365 L248 326"/>
+          <path d="M310 178 L340 178"/>
+        </g>
+        <circle cx="310" cy="178" r="5" fill="#2f6bff" class="node-pulse"/>
+        <circle cx="88" cy="78" r="5" fill="#2f6bff" class="node-pulse-2"/>
+        <circle cx="248" cy="326" r="5" fill="#2f6bff" class="node-pulse"/>
+        <circle cx="340" cy="178" r="4" fill="#5b9bff"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="hero-stats">
+    <div class="stats-inner">
+      <div class="stat">
+        <div class="stat-num">24<span class="unit">/7</span></div>
+        <div class="stat-label">IT Support Responsif</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5<span class="unit">+</span></div>
+        <div class="stat-label">Layanan Teknologi Terintegrasi</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100<span class="unit">%</span></div>
+        <div class="stat-label">Fokus pada UMKM & Bisnis Tumbuh</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5.0</div>
+        <div class="stat-label">Siap Era Society 5.0</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     TICKER
+======================================= -->
+<div class="ticker">
+  <div class="ticker-track" aria-hidden="true">
+    <div class="ticker-item"><span class="ticker-dot"></span>IT Support</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Network Solution</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Web Development</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Cyber Security</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>IT Maintenance</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Remote Support</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>WiFi Setup</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>UMKM Technology</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Digital Transformation</div>
+    <!-- duplicate for seamless loop -->
+    <div class="ticker-item"><span class="ticker-dot"></span>IT Support</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Network Solution</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Web Development</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Cyber Security</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>IT Maintenance</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Remote Support</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>WiFi Setup</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>UMKM Technology</div>
+    <div class="ticker-item"><span class="ticker-dot"></span>Digital Transformation</div>
+  </div>
+</div>
+
+<!-- ======================================
+     ABOUT
+======================================= -->
+<section id="about" class="section-gap">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-visual reveal-left">
+        <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="20" y="20" width="440" height="440" rx="2" fill="none" stroke="#e3e7ef" stroke-width="1.5"/>
+          <g stroke="#e3e7ef" stroke-width="1">
+            <line x1="20" y1="170" x2="460" y2="170"/>
+            <line x1="20" y1="310" x2="460" y2="310"/>
+            <line x1="170" y1="20" x2="170" y2="460"/>
+            <line x1="310" y1="20" x2="310" y2="460"/>
+          </g>
+          <g stroke="url(#lg1)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M95 95 L170 95 L170 170 L310 170 L310 240 L385 240"/>
+            <path d="M95 385 L170 385 L170 310 L240 310 L240 240"/>
+            <path d="M385 95 L310 95 L310 170"/>
+            <path d="M240 240 L240 170"/>
+          </g>
+          <circle cx="95" cy="95" r="8" fill="white" stroke="#2f6bff" stroke-width="2"/>
+          <circle cx="385" cy="240" r="10" fill="#2f6bff"/>
+          <circle cx="95" cy="385" r="8" fill="white" stroke="#2f6bff" stroke-width="2"/>
+          <circle cx="385" cy="95" r="8" fill="white" stroke="#2f6bff" stroke-width="2"/>
+          <circle cx="240" cy="240" r="8" fill="white" stroke="#2f6bff" stroke-width="2"/>
+          <circle cx="170" cy="170" r="5" fill="#5b9bff"/>
+          <circle cx="310" cy="170" r="5" fill="#5b9bff"/>
+          <circle cx="170" cy="310" r="5" fill="#5b9bff"/>
+          <circle cx="240" cy="170" r="5" fill="#5b9bff"/>
+        </svg>
+        <div class="about-badge">
+          <span class="big">Society<br>5.0</span>
+          <small>Ready Technology</small>
+        </div>
+      </div>
+
+      <div class="about-text reveal-right">
+        <div class="eyebrow"><span class="dash"></span>Tentang Kami</div>
+        <h2 class="section-title">Mitra Teknologi untuk Bisnis yang Terus Bertumbuh</h2>
+        <p>SARGA Technology hadir untuk membantu bisnis kecil dan berkembang memanfaatkan teknologi secara efektif, aman, dan efisien. Kami berfokus pada kebutuhan nyata operasional bisnis Anda sehari-hari.</p>
+        <p>Dari perawatan perangkat, jaringan kantor, kehadiran online, hingga proteksi data — tim kami bekerja sebagai bagian dari bisnis Anda, bukan sekadar vendor.</p>
+        <div class="about-points">
+          <div class="about-pt">
+            <div class="about-pt-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="2" stroke-linecap="round"><path d="M12 2 L20 6 V12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 V6 Z"/><path d="M9 12 L11.5 14.5 L16 9"/></svg>
+            </div>
+            <div>
+              <h4>Solusi Dipersonalisasi</h4>
+              <p>Disesuaikan dengan skala & anggaran bisnis Anda, bukan paket generik one-size-fits-all.</p>
+            </div>
+          </div>
+          <div class="about-pt">
+            <div class="about-pt-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M2 12 L9 12 M15 12 L22 12 M12 2 L12 9 M12 15 L12 22"/></svg>
+            </div>
+            <div>
+              <h4>Respons Cepat & Terukur</h4>
+              <p>Remote support & maintenance rutin agar gangguan teknis tidak menghambat operasional.</p>
+            </div>
+          </div>
+          <div class="about-pt">
+            <div class="about-pt-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="2" stroke-linecap="round"><path d="M13 2 L4 14 L11 14 L10 22 L20 9 L13 9 Z"/></svg>
+            </div>
+            <div>
+              <h4>Pendampingan Jangka Panjang</h4>
+              <p>Kami menjadi Technology Partner — tumbuh bersama bisnis Anda dari hari ke hari.</p>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:32px;display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="https://wa.me/6285793663708?text=Halo%2C%20saya%20ingin%20konsultasi." class="btn btn-primary" target="_blank" rel="noopener">Konsultasi Gratis</a>
+          <a href="#services" class="btn btn-outline-dark">Lihat Layanan</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     SERVICES
+======================================= -->
+<section id="services" class="section-gap">
+  <div class="wrap">
+    <div class="two-col-head">
+      <div class="reveal">
+        <div class="eyebrow"><span class="dash"></span>Layanan Kami</div>
+        <h2 class="section-title">Solusi Teknologi untuk Bisnis Anda</h2>
+      </div>
+      <p class="section-sub reveal">Lima pilar layanan yang saling terintegrasi — dari infrastruktur dasar hingga keamanan digital dan kehadiran online.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="svc-card reveal">
+        <span class="svc-idx mono">01</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="12" rx="1"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="16" x2="12" y2="20"/><path d="M7 10 L10 10 L10 12" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>IT Support</h3>
+        <p>Maintenance komputer, troubleshooting, remote support, dan konsultasi IT untuk menjaga produktivitas tim Anda setiap hari tanpa terganggu masalah teknis.</p>
+        <div class="svc-footer">
+          <span class="svc-tag">24/7 Support</span>
+          <span class="svc-arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="svc-card reveal">
+        <span class="svc-idx mono">02</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><rect x="9" y="2" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="16" y="16" width="6" height="6" rx="1"/><path d="M12 8 L12 13 L5 13 L5 16 M12 13 L19 13 L19 16"/></svg>
+        </div>
+        <h3>Network Solution</h3>
+        <p>Instalasi dan konfigurasi jaringan, WiFi, router, VPN, dan seluruh infrastruktur jaringan yang stabil & aman untuk kebutuhan konektivitas kantor Anda.</p>
+        <div class="svc-footer">
+          <span class="svc-tag">Infra & WiFi</span>
+          <span class="svc-arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="svc-card reveal">
+        <span class="svc-idx mono">03</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.5" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+        </div>
+        <h3>Web Development</h3>
+        <p>Pembuatan website company profile, landing page, toko online, dan website bisnis yang profesional untuk meningkatkan kehadiran & kredibilitas digital.</p>
+        <div class="svc-footer">
+          <span class="svc-tag">Company Profile</span>
+          <span class="svc-arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="svc-card reveal">
+        <span class="svc-idx mono">04</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><path d="M12 2 L20 6 V12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 V6 Z" stroke-linejoin="round"/><path d="M9 12 L11.5 14.5 L16 9"/></svg>
+        </div>
+        <h3>Cyber Security</h3>
+        <p>Audit keamanan dasar, hardening sistem, proteksi data, dan edukasi keamanan digital untuk melindungi bisnis Anda dari ancaman siber yang makin canggih.</p>
+        <div class="svc-footer">
+          <span class="svc-tag">Data Protection</span>
+          <span class="svc-arrow">↗</span>
+        </div>
+      </div>
+
+      <div class="svc-card reveal">
+        <span class="svc-idx mono">05</span>
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><path d="M12 20 L12 4 M4 12 L12 4 L20 12"/><path d="M4 20 L20 20"/></svg>
+        </div>
+        <h3>IT Maintenance</h3>
+        <p>Pemeliharaan rutin perangkat keras dan lunak, update sistem, backup data, dan monitoring kesehatan infrastruktur IT perusahaan Anda secara berkala.</p>
+        <div class="svc-footer">
+          <span class="svc-tag">Rutin & Terjadwal</span>
+          <span class="svc-arrow">↗</span>
+        </div>
+      </div>
+
+      <!-- CTA card -->
+      <div class="svc-card reveal" style="background:var(--navy);justify-content:center;align-items:flex-start;">
+        <div class="eyebrow" style="color:var(--blue-light);"><span class="dash"></span>Butuh solusi custom?</div>
+        <h3 style="color:#fff;font-size:1.2rem;margin-bottom:12px;">Kami siap diskusi kebutuhan spesifik bisnis Anda</h3>
+        <p style="color:var(--muted);margin-bottom:28px;">Setiap bisnis unik. Ceritakan tantangan teknis Anda dan kami bantu carikan jalan keluarnya.</p>
+        <a href="https://wa.me/6285793663708?text=Halo%2C%20saya%20butuh%20solusi%20IT%20custom."
+           class="btn btn-wa btn-sm" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.529 5.862L.057 23.998l6.304-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.002-1.369l-.359-.213-3.72.976.994-3.625-.234-.373A9.822 9.822 0 0 1 2.182 12C2.182 6.572 6.572 2.182 12 2.182c5.428 0 9.818 4.39 9.818 9.818 0 5.428-4.39 9.818-9.818 9.818z"/></svg>
+          Chat Sekarang
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     WHY
+======================================= -->
+<section id="why" class="section-gap" style="position:relative;">
+  <svg class="why-bg" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;" aria-hidden="true">
+    <g stroke="#1c3354" stroke-width="1.5" fill="none">
+      <path d="M50 50 L200 50 L200 150 L350 150"/>
+      <path d="M900 400 L1050 400 L1050 500 L1200 500"/>
+      <path d="M600 50 L600 150 L750 150"/>
+    </g>
+  </svg>
+  <div class="wrap" style="position:relative;z-index:2;">
+    <div class="two-col-head">
+      <div class="reveal">
+        <div class="eyebrow" style="color:var(--blue-light);"><span class="dash"></span>Mengapa SARGA</div>
+        <h2 class="section-title light">Bersama SARGA, Siap Hadapi Era Society 5.0</h2>
+      </div>
+      <p class="section-sub light reveal">Kami membantu bisnis beradaptasi, berinovasi, dan bertumbuh di era digital yang serba terhubung.</p>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5b9bff" stroke-width="1.8" stroke-linecap="round"><path d="M13 2 L4 14 L11 14 L10 22 L20 9 L13 9 Z"/></svg>
+        </div>
+        <h3>Efisien</h3>
+        <p>Proses bisnis lebih cepat dan produktif dengan teknologi yang tepat sasaran, mengurangi downtime dan hambatan operasional.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5b9bff" stroke-width="1.8" stroke-linecap="round"><path d="M12 2 L20 6 V12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 V6 Z"/><path d="M9 12 L11.5 14.5 L16 9"/></svg>
+        </div>
+        <h3>Aman</h3>
+        <p>Sistem bisnis Anda terlindungi dari ancaman digital — data aman, operasional tenang, pelanggan percaya.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5b9bff" stroke-width="1.8" stroke-linecap="round"><path d="M3 17 L9 11 L13 15 L18 8 L21 11"/><path d="M18 8 L21 8 L21 11"/></svg>
+        </div>
+        <h3>Berkembang</h3>
+        <p>Teknologi yang kami bangun hari ini menjadi fondasi pertumbuhan bisnis Anda di masa depan — siap scale up kapan pun.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5b9bff" stroke-width="1.8" stroke-linecap="round"><circle cx="8" cy="8" r="3"/><path d="M3 20 C3 16 5.5 13 8 13 C10.5 13 13 16 13 20"/><circle cx="17" cy="9" r="2.5"/><path d="M14 20 C14 17 15.5 15 17 15 C18.5 15 21 17 21 20"/></svg>
+        </div>
+        <h3>Partner Jangka Panjang</h3>
+        <p>Kami bukan vendor satu proyek. Kami adalah mitra teknologi yang hadir mendampingi pertumbuhan bisnis Anda.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5b9bff" stroke-width="1.8" stroke-linecap="round"><path d="M12 2 C6.5 2 2 6.5 2 12 C2 17.5 6.5 22 12 22 C17.5 22 22 17.5 22 12"/><path d="M15 2.5 L22 2.5 L22 9.5"/><path d="M22 2.5 L13 11.5"/></svg>
+        </div>
+        <h3>Respons Cepat</h3>
+        <p>Masalah teknis butuh penanganan cepat. Tim kami siap merespons dan menyelesaikan gangguan dalam waktu singkat.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#5b9bff" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5 H9 C7.3 5 6 6.3 6 8 C6 9.7 7.3 11 9 11 H15 C16.7 11 18 12.3 18 14 C18 15.7 16.7 17 15 17 H6"/></svg>
+        </div>
+        <h3>Terjangkau</h3>
+        <p>Solusi IT berkualitas tidak harus mahal. Kami menawarkan layanan profesional yang sesuai anggaran UMKM.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     PROCESS
+======================================= -->
+<section id="process" class="section-gap">
+  <div class="wrap">
+    <div class="two-col-head">
+      <div class="reveal">
+        <div class="eyebrow"><span class="dash"></span>Cara Kerja</div>
+        <h2 class="section-title">Proses Kolaborasi yang Transparan</h2>
+      </div>
+      <p class="section-sub reveal">Empat langkah sederhana — dari memahami kebutuhan hingga dukungan berkelanjutan pasca implementasi.</p>
+    </div>
+    <div class="process-grid">
+      <div class="proc-step reveal">
+        <div class="proc-num">1</div>
+        <h3>Konsultasi Kebutuhan</h3>
+        <p>Kami diskusikan kondisi sistem, tantangan teknis, dan tujuan bisnis Anda secara menyeluruh — gratis, tanpa komitmen.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">2</div>
+        <h3>Rencana & Penawaran</h3>
+        <p>Tim menyusun rencana solusi, estimasi biaya, dan timeline yang jelas dan transparan sesuai kebutuhan Anda.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">3</div>
+        <h3>Implementasi</h3>
+        <p>Eksekusi solusi sesuai rencana — instalasi jaringan, pengembangan website, atau penguatan keamanan sistem.</p>
+      </div>
+      <div class="proc-step reveal">
+        <div class="proc-num">4</div>
+        <h3>Dukungan Berkelanjutan</h3>
+        <p>Maintenance rutin dan IT support jangka panjang agar sistem bisnis Anda tetap optimal setiap saat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     INDUSTRIES
+======================================= -->
+<section id="industries" class="section-gap">
+  <div class="wrap">
+    <div class="two-col-head">
+      <div class="reveal">
+        <div class="eyebrow"><span class="dash"></span>Industri yang Kami Layani</div>
+        <h2 class="section-title">Cocok untuk Berbagai Jenis Bisnis</h2>
+      </div>
+      <p class="section-sub reveal">Dari toko ritel hingga klinik kesehatan — solusi kami dirancang fleksibel untuk skala & kebutuhan yang berbeda.</p>
+    </div>
+    <div class="ind-grid">
+      <div class="ind-card reveal">
+        <div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><path d="M3 9 L12 3 L21 9 V21 H15 V15 H9 V21 H3 Z"/></svg></div>
+        <div>
+          <h4>Ritel & UMKM</h4>
+          <p>Toko, warung, butik — sistem kasir, WiFi, dan website produk yang terjangkau.</p>
+        </div>
+      </div>
+      <div class="ind-card reveal">
+        <div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="6" width="20" height="14" rx="1"/><path d="M16 6 V4 C16 3 15 2 14 2 H10 C9 2 8 3 8 4 V6"/><line x1="12" y1="12" x2="12" y2="12" stroke-width="3"/></svg></div>
+        <div>
+          <h4>Jasa Profesional</h4>
+          <p>Kantor konsultan, agensi, notaris — jaringan stabil dan keamanan data klien terjaga.</p>
+        </div>
+      </div>
+      <div class="ind-card reveal">
+        <div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><path d="M3 6 H21 M3 12 H21 M3 18 H21"/><circle cx="7" cy="6" r="2" fill="#2f6bff"/><circle cx="12" cy="12" r="2" fill="#2f6bff"/><circle cx="17" cy="18" r="2" fill="#2f6bff"/></svg></div>
+        <div>
+          <h4>F&B & Kuliner</h4>
+          <p>Restoran & cafe — WiFi pelanggan, sistem POS, dan landing page pemesanan online.</p>
+        </div>
+      </div>
+      <div class="ind-card reveal">
+        <div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><path d="M12 2 L12 6 M12 18 L12 22 M4.9 4.9 L7.8 7.8 M16.2 16.2 L19.1 19.1 M2 12 L6 12 M18 12 L22 12 M4.9 19.1 L7.8 16.2 M16.2 7.8 L19.1 4.9"/><circle cx="12" cy="12" r="4"/></svg></div>
+        <div>
+          <h4>Pendidikan</h4>
+          <p>Sekolah, kursus, les privat — lab komputer, jaringan kampus, dan platform belajar online.</p>
+        </div>
+      </div>
+      <div class="ind-card reveal">
+        <div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div>
+          <h4>Kesehatan</h4>
+          <p>Klinik, apotek, praktek dokter — rekam medis digital, jaringan aman, dan website booking.</p>
+        </div>
+      </div>
+      <div class="ind-card reveal">
+        <div class="ind-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="3" width="20" height="18" rx="1"/><path d="M8 3 V21 M2 9 L8 9 M2 15 L8 15"/></svg></div>
+        <div>
+          <h4>Manufaktur & Gudang</h4>
+          <p>Pabrik kecil & gudang — jaringan produksi, CCTV, dan sistem inventaris berbasis cloud.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     TESTIMONIALS
+======================================= -->
+<section id="testimonials" class="section-gap" style="background:var(--paper-2);">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:52px;" class="reveal">
+      <div class="eyebrow" style="justify-content:center;"><span class="dash"></span>Testimoni</div>
+      <h2 class="section-title">Apa Kata Pelanggan Kami</h2>
+      <p class="section-sub" style="margin:14px auto 0;">Kepercayaan pelanggan adalah ukuran keberhasilan kami yang sesungguhnya.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-text">"SARGA Technology benar-benar membantu bisnis kami. Jaringan kantor yang dulu sering putus sekarang sangat stabil. Tim mereka responsif dan profesional, masalah selalu ditangani cepat."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div>
+            <div class="testi-name">Rizky Firmansyah</div>
+            <div class="testi-role">Owner, Toko Elektronik Rizky</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-text">"Website company profile kami sekarang terlihat jauh lebih profesional. Klien sering memuji tampilannya. Proses pengerjaan juga cepat dan sesuai dengan yang kami minta."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div>
+            <div class="testi-name">Siti Rahmawati</div>
+            <div class="testi-role">Direktur, CV Maju Bersama</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="testi-text">"Setelah audit keamanan dari SARGA, kami lebih tenang soal data pelanggan. Mereka juga bantu edukasi tim kami tentang best practice keamanan digital. Sangat direkomendasikan!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div>
+            <div class="testi-name">Ahmad Fauzi</div>
+            <div class="testi-role">Manager IT, Klinik Sehat Mandiri</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     PRICING
+======================================= -->
+<section id="pricing" class="section-gap">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:52px;" class="reveal">
+      <div class="eyebrow" style="justify-content:center;color:var(--blue-light);"><span class="dash"></span>Paket Layanan</div>
+      <h2 class="section-title light">Harga Transparan, Tanpa Biaya Tersembunyi</h2>
+      <p class="section-sub light" style="margin:14px auto 0;">Pilih paket yang sesuai dengan ukuran dan kebutuhan bisnis Anda. Semua paket bisa dikustomisasi.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">
+          <span class="from">Mulai dari</span><br>
+          <span class="num">Rp 300rb</span>
+          <span class="per">/bulan</span>
+        </div>
+        <p class="plan-desc">Ideal untuk bisnis baru & usaha mikro yang baru mulai membangun fondasi IT.</p>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feat"><span class="check">✓</span><span>IT Support dasar (remote)</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Maintenance bulanan 1x kunjungan</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Konsultasi IT via WhatsApp</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Troubleshooting perangkat</span></div>
+          <div class="plan-feat"><span class="cross">–</span><span style="opacity:.5">Setup jaringan kantor</span></div>
+          <div class="plan-feat"><span class="cross">–</span><span style="opacity:.5">Cyber security audit</span></div>
+        </div>
+        <a href="https://wa.me/6285793663708?text=Halo%2C%20saya%20tertarik%20dengan%20paket%20Starter."
+           class="btn btn-outline" target="_blank" rel="noopener" style="justify-content:center;width:100%;">Pilih Paket Ini</a>
+      </div>
+
+      <div class="pricing-card featured reveal">
+        <div class="featured-badge">PALING POPULER</div>
+        <div class="plan-name">Business</div>
+        <div class="plan-price">
+          <span class="from">Mulai dari</span><br>
+          <span class="num">Rp 800rb</span>
+          <span class="per">/bulan</span>
+        </div>
+        <p class="plan-desc">Untuk UKM aktif dengan kebutuhan IT yang lebih lengkap dan stabil.</p>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feat"><span class="check">✓</span><span>IT Support prioritas (remote + onsite)</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Maintenance 2x kunjungan/bulan</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Setup & manajemen jaringan WiFi</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Backup data berkala</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Basic security hardening</span></div>
+          <div class="plan-feat"><span class="cross">–</span><span style="opacity:.5">Cyber security audit penuh</span></div>
+        </div>
+        <a href="https://wa.me/6285793663708?text=Halo%2C%20saya%20tertarik%20dengan%20paket%20Business."
+           class="btn btn-primary" target="_blank" rel="noopener" style="justify-content:center;width:100%;">Pilih Paket Ini</a>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">
+          <span class="from">Mulai dari</span><br>
+          <span class="num">Custom</span>
+        </div>
+        <p class="plan-desc">Solusi IT menyeluruh untuk bisnis berkembang dengan infrastruktur yang lebih kompleks.</p>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="plan-feat"><span class="check">✓</span><span>Semua fitur Business</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Dedicated IT support person</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Cyber security audit & monitoring</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Web development & maintenance</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>SLA response time guaranteed</span></div>
+          <div class="plan-feat"><span class="check">✓</span><span>Laporan bulanan & konsultasi strategis</span></div>
+        </div>
+        <a href="https://wa.me/6285793663708?text=Halo%2C%20saya%20ingin%20diskusi%20paket%20Enterprise."
+           class="btn btn-outline" target="_blank" rel="noopener" style="justify-content:center;width:100%;">Hubungi Kami</a>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:0.85rem;color:var(--muted);">* Harga bersifat estimasi dan dapat berubah sesuai kebutuhan. Hubungi kami untuk penawaran yang tepat.</p>
+  </div>
+</section>
+
+<!-- ======================================
+     FAQ
+======================================= -->
+<section id="faq" class="section-gap" style="background:var(--paper);">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:52px;" class="reveal">
+      <div class="eyebrow" style="justify-content:center;"><span class="dash"></span>FAQ</div>
+      <h2 class="section-title">Pertanyaan yang Sering Ditanyakan</h2>
+    </div>
+    <div class="faq-grid">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Apakah SARGA Technology melayani bisnis di luar Bandung?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Ya! Untuk layanan remote support, konsultasi, dan web development kami melayani seluruh Indonesia. Untuk kunjungan onsite, kami saat ini berfokus di wilayah Bandung dan sekitarnya. Hubungi kami untuk informasi lebih lanjut.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Berapa lama proses pembuatan website?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Website company profile sederhana umumnya selesai dalam 5–10 hari kerja. Untuk website dengan fitur yang lebih kompleks seperti toko online atau sistem booking, biasanya membutuhkan 2–4 minggu tergantung spesifikasi dan kecepatan revisi.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Apa yang termasuk dalam layanan IT Maintenance?<span class="faq-icon">+</span></button>
+        <div class="faq-a">IT Maintenance mencakup pengecekan rutin perangkat keras dan lunak, update sistem operasi dan antivirus, pembersihan file sampah, backup data, monitoring performa jaringan, serta laporan kesehatan sistem berkala. Frekuensi kunjungan disesuaikan dengan paket yang dipilih.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Apakah tersedia kontrak jangka panjang?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Kami menawarkan paket bulanan maupun tahunan. Kontrak tahunan biasanya mendapatkan harga lebih hemat. Kami juga terbuka untuk kerja sama proyek satu kali tanpa kontrak berulang, disesuaikan dengan kebutuhan Anda.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Seberapa cepat tim SARGA merespons ketika ada masalah?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Untuk pelanggan aktif, kami berkomitmen merespons pertanyaan atau laporan gangguan dalam 15–30 menit via WhatsApp di jam kerja. Untuk paket Enterprise, tersedia SLA dengan waktu respons yang lebih terstruktur.</div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Bagaimana cara memulai konsultasi dengan SARGA?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Mudah! Cukup hubungi kami via WhatsApp di 0857-9366-3708 atau isi form kontak di halaman ini. Konsultasi pertama gratis — kami akan diskusikan kebutuhan teknologi bisnis Anda dan memberikan rekomendasi solusi yang paling sesuai.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     CTA STRIP
+======================================= -->
+<section id="cta" class="section-gap" style="position:relative;overflow:hidden;">
+  <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.15;" viewBox="0 0 1200 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g stroke="#2f6bff" stroke-width="1.5" fill="none">
+      <path d="M0 200 L300 200 L300 100 L600 100"/>
+      <path d="M1200 200 L900 200 L900 300 L600 300"/>
+    </g>
+    <circle cx="600" cy="200" r="80" fill="rgba(47,107,255,0.08)"/>
+  </svg>
+  <div class="wrap" style="position:relative;z-index:2;">
+    <div class="cta-inner">
+      <div class="cta-text reveal-left">
+        <div class="eyebrow" style="color:var(--blue-light);"><span class="dash"></span>Mulai Sekarang</div>
+        <h2>Siap membawa bisnis Anda <span class="accent">lebih efisien, aman, dan berkembang?</span></h2>
+        <p>Ceritakan kebutuhan teknologi bisnis Anda — kami bantu menemukan solusi yang paling tepat, tanpa komitmen di awal. Konsultasi pertama gratis!</p>
+      </div>
+      <div class="cta-btns reveal-right">
+        <a href="https://wa.me/6285793663708?text=Halo%20SARGA%20Technology%2C%20saya%20ingin%20konsultasi%20gratis%20mengenai%20kebutuhan%20IT%20bisnis%20saya."
+           class="btn btn-wa" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.529 5.862L.057 23.998l6.304-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.002-1.369l-.359-.213-3.72.976.994-3.625-.234-.373A9.822 9.822 0 0 1 2.182 12C2.182 6.572 6.572 2.182 12 2.182c5.428 0 9.818 4.39 9.818 9.818 0 5.428-4.39 9.818-9.818 9.818z"/></svg>
+          Chat WhatsApp Sekarang
+        </a>
+        <a href="#contact" class="btn btn-outline">Kirim Pesan</a>
+        <p style="font-size:0.82rem;color:var(--muted);text-align:center;">
+          Atau hubungi langsung: <a href="tel:+6285793663708" style="color:var(--blue-light);font-weight:600;">0857-9366-3708</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     CONTACT
+======================================= -->
+<section id="contact" class="section-gap" style="background:var(--paper-2);">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:52px;" class="reveal">
+      <div class="eyebrow" style="justify-content:center;"><span class="dash"></span>Kontak</div>
+      <h2 class="section-title">Hubungi Kami</h2>
+      <p class="section-sub" style="margin:14px auto 0;">Tim SARGA Technology siap membantu. Pilih cara yang paling mudah untuk Anda.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal-left">
+        <h2 style="font-size:1.5rem;color:var(--navy);margin-bottom:12px;">Ada pertanyaan? Kami siap membantu!</h2>
+        <p>Hubungi kami lewat WhatsApp untuk respons tercepat, atau isi form di samping dan kami akan membalas dalam 1×24 jam.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="currentColor" style="color:#25d366;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.529 5.862L.057 23.998l6.304-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.002-1.369l-.359-.213-3.72.976.994-3.625-.234-.373A9.822 9.822 0 0 1 2.182 12C2.182 6.572 6.572 2.182 12 2.182c5.428 0 9.818 4.39 9.818 9.818 0 5.428-4.39 9.818-9.818 9.818z"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">WhatsApp</div>
+              <div class="ci-val"><a href="https://wa.me/6285793663708" target="_blank" rel="noopener">0857-9366-3708</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.14z"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">Telepon</div>
+              <div class="ci-val"><a href="tel:+6285793663708">0857-9366-3708</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">Email</div>
+              <div class="ci-val"><a href="mailto:technologysarga@gmail.com">technologysarga@gmail.com</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.5" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">Website</div>
+              <div class="ci-val"><a href="https://sargatechnology.id" target="_blank" rel="noopener">sargatechnology.id</a></div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2f6bff" stroke-width="1.8" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="ci-label">Lokasi</div>
+              <div class="ci-val">Bandung, Jawa Barat, Indonesia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form-card reveal-right">
+        <div class="form-title">Kirim Pesan</div>
+        <div class="form-sub">Isi form ini dan kami akan menghubungi Anda dalam 1×24 jam.</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nama">Nama Lengkap *</label>
+            <input type="text" id="nama" placeholder="Budi Santoso">
+          </div>
+          <div class="form-group">
+            <label for="wa">Nomor WhatsApp *</label>
+            <input type="tel" id="wa" placeholder="0812-xxxx-xxxx">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="email@bisnis.com">
+        </div>
+        <div class="form-group">
+          <label for="layanan">Layanan yang Dibutuhkan</label>
+          <select id="layanan">
+            <option value="">-- Pilih layanan --</option>
+            <option>IT Support</option>
+            <option>Network Solution</option>
+            <option>Web Development</option>
+            <option>Cyber Security</option>
+            <option>IT Maintenance</option>
+            <option>Paket Lengkap / Custom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pesan">Ceritakan Kebutuhan Anda *</label>
+          <textarea id="pesan" placeholder="Jelaskan kebutuhan atau masalah IT bisnis Anda..."></textarea>
+        </div>
+        <button class="btn btn-wa form-submit" onclick="sendWA()">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.529 5.862L.057 23.998l6.304-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.002-1.369l-.359-.213-3.72.976.994-3.625-.234-.373A9.822 9.822 0 0 1 2.182 12C2.182 6.572 6.572 2.182 12 2.182c5.428 0 9.818 4.39 9.818 9.818 0 5.428-4.39 9.818-9.818 9.818z"/></svg>
+          Kirim via WhatsApp
+        </button>
+        <p class="form-note">* Dengan mengisi form ini, Anda akan diarahkan ke WhatsApp kami.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================
+     FOOTER
+======================================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-main">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M68 8 L92 8 L62 32 L40 32 L36 32 C30 32 25 36 25 42 C25 48 30 52 36 52 L64 52 C70 52 75 56 75 62 C75 68 70 72 64 72 L8 72 L32 92 L64 92 C76 92 86 82 86 70 C86 60 78 52 68 50 C78 48 86 40 86 30 C86 18 76 8 64 8 Z" fill="url(#lg1)"/>
+          </svg>
+          <span>SARGA<span class="logo-sub">TECHNOLOGY</span></span>
+        </a>
+        <p>Reliable Technology. Stronger Business.<br>Mitra teknologi untuk UMKM dan bisnis yang terus bertumbuh di Indonesia.</p>
+        <div class="footer-socials" style="margin-top:20px;">
+          <a href="https://wa.me/6285793663708" class="footer-social" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.555 4.126 1.529 5.862L.057 23.998l6.304-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.808 9.808 0 0 1-5.002-1.369l-.359-.213-3.72.976.994-3.625-.234-.373A9.822 9.822 0 0 1 2.182 12C2.182 6.572 6.572 2.182 12 2.182c5.428 0 9.818 4.39 9.818 9.818 0 5.428-4.39 9.818-9.818 9.818z"/></svg>
+          </a>
+          <a href="mailto:technologysarga@gmail.com" class="footer-social" aria-label="Email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+          <a href="https://sargatechnology.id" class="footer-social" target="_blank" rel="noopener" aria-label="Website">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4.5" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Navigasi</h5>
+        <ul>
+          <li><a href="#home">Beranda</a></li>
+          <li><a href="#about">Tentang Kami</a></li>
+          <li><a href="#services">Layanan</a></li>
+          <li><a href="#why">Keunggulan</a></li>
+          <li><a href="#process">Proses Kerja</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Layanan</h5>
+        <ul>
+          <li><a href="#services">IT Support</a></li>
+          <li><a href="#services">Network Solution</a></li>
+          <li><a href="#services">Web Development</a></li>
+          <li><a href="#services">Cyber Security</a></li>
+          <li><a href="#services">IT Maintenance</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Kontak</h5>
+        <ul>
+          <li><a href="https://wa.me/6285793663708" target="_blank" rel="noopener">WhatsApp: 0857-9366-3708</a></li>
+          <li><a href="tel:+6285793663708">Telp: 0857-9366-3708</a></li>
+          <li><a href="mailto:technologysarga@gmail.com">technologysarga@gmail.com</a></li>
+          <li><a href="https://sargatechnology.id" target="_blank" rel="noopener">sargatechnology.id</a></li>
+          <li><a href="#">Bandung, Jawa Barat</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 SARGA Technology. All rights reserved.</p>
+      <span class="footer-hashtag mono">#GrowWithSarga</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ======================================
+     SCRIPTS
+======================================= -->
+<script>
+// ---- Hamburger / Mobile Nav ----
+const hamburger = document.getElementById('hamburger');
+const mobileNav = document.getElementById('mobileNav');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileNav.classList.toggle('open');
+  document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+});
+document.querySelectorAll('.mobile-nav a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    mobileNav.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+// ---- FAQ accordion ----
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ---- WhatsApp form sender ----
+function sendWA() {
+  const nama = document.getElementById('nama').value.trim();
+  const wa = document.getElementById('wa').value.trim();
+  const layanan = document.getElementById('layanan').value;
+  const pesan = document.getElementById('pesan').value.trim();
+  if (!nama || !wa || !pesan) {
+    alert('Mohon isi nama, nomor WhatsApp, dan pesan terlebih dahulu.');
+    return;
+  }
+  const msg = `Halo SARGA Technology!%0A%0ANama: ${encodeURIComponent(nama)}%0ANo WA: ${encodeURIComponent(wa)}%0ALayanan: ${encodeURIComponent(layanan || 'Belum dipilih')}%0A%0APesan:%0A${encodeURIComponent(pesan)}`;
+  window.open(`https://wa.me/6285793663708?text=${msg}`, '_blank');
+}
+
+// ---- Scroll reveal ----
+const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => observer.observe(el));
+
+// ---- Header scroll style ----
+window.addEventListener('scroll', () => {
+  document.getElementById('header').style.background =
+    window.scrollY > 60 ? 'rgba(10,22,40,0.97)' : 'rgba(10,22,40,0.9)';
+});
+</script>
+</body>
+</html>
